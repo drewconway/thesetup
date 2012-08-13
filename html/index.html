@@ -1,0 +1,37 @@
+<!doctype html public>
+<!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html lang="en-us" class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html lang="en-us" class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-us"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <title>Mapping Tool Communities from The Setup</title>
+  <meta name="viewport" content="width=device-width">
+  <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
+  <link type="text/css" rel="stylesheet" href="usesthis.css" />
+  <link type="text/css" rel="stylesheet" href="https://raw.github.com/mbostock/d3/master/lib/colorbrewer/colorbrewer.css" />
+
+</head>
+<body onkeydown="keyboardAction(event)">
+	<div id="instructions" class="layout">
+		<h3>Mapping Tool Communities from The Setup</h3>
+		<p>This project is an attempt to map the communities of tools used by people interviewd by one of my favorite websites: <a href="http://usesthis.com/" target="_blank">The Setup</a>.  Each node on the map represents a tool used by an interviewee from The Setup.  Node size is a proxy for each tool's overall popularity.  The proximity of these tools to one another is a projection of their affiliation in interviews into a two-dimensional space.  Put simply, the more people who use the same tools, the closer those tools will be to one another on the map.  Communities are represented by color, and are determined hierarchically based on this proximity. <a href="#controls">Controls described below</a>.</p>  
+		
+		<p>To learn more about the methodlogy used in this, and to download the code see my <a href="#" target="_blank">Github repository</a>.  This map will automatically update daily. <strong>Data may take a few seconds to load!</strong></p>
+	</div>
+	<div id="chart" class="layout"></div>
+	<div id="slider" class="layout"></div>
+	<div id="controls" class="layout" style="text-align: left;">
+		<p><a name="controls"><strong>Contols</strong></a></p>
+		<ul>
+			<li>Zoom-in and -out using your mouse to view the node details</li>
+			<li>Increase or decrease the granularity of the communities using the right (<strong>&rarr;</strong>) and left (<strong>&larr;</strong>) arrow keys, or by double-clicking on a cluster tick-mark.</li>
+			<li>Toggle map grid lines by pressing the "<strong>M</strong>" key</li>
+		</ul>
+	</div>
+	<div id="credit" class="layout" style="text-align: center;"><p>Created by <a href="http://drewconway.com" target="_blank">Drew Conway</a>, 2012.</p></div>
+	<script type="text/javascript" src="usesthis.js"></script>
+</body>
+</html>
+

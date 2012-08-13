@@ -1,0 +1,81 @@
+body {
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	vertical-align: middle;
+	background-color: #f5f5f5;
+	font-family: sans-serif;
+	font-size: 12px;
+	line-height: 1.0;
+}
+
+div.layout {
+	padding-left: 5%;
+	padding-right: 5%;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+h3 {
+	text-align: left;
+	text-decoration: underline;	
+}
+
+p {
+	text-align: left;
+}
+
+ul {
+	text-align: left;
+}
+
+text.slider {
+	font-size: 14px;
+	fill: #00008B;
+	text-anchor: middle;
+}
+
+text.label {
+	font-size: 16px;
+	fill: #00008B;	
+	fill-opacity: 0%;
+}
+
+line.slider {
+	stroke-width: 3px;
+	stroke: #00008B;
+}
+
+line.ticks {
+	stroke-width: 2px;
+	stroke: #00008B;
+}
+
+rect.picker {
+	fill: grey;
+	stroke-width: 1px;
+	stroke: #000;
+	fill-opacity: 0%;
+	stroke-opacity: 0%;
+}
+
+rect.selector {
+	fill-opacity: 0%;
+}
+
+text.tool {
+	font-size: 2px;
+	fill: #000;
+	fill-opacity: 0%;
+	text-anchor: middle;
+	dominant-baseline: central;
+}
+
+ellipse.grid {
+	fill: none;
+	stoke-width: 1px;
+	stroke: #000;
+	stroke-opacity: 0%;
+	stroke-dasharray: 2 2;
+}
