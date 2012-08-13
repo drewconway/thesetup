@@ -1,0 +1,5 @@
+*.p
+*.json
+*.edgelist
+*.Rapp.history
+regenerate_data
