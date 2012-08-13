@@ -8,7 +8,7 @@ Below is a explanation of the methodology I used to create this visualization an
 
 The Setup is one of my favorite websites.  I love learning what hardware and software smart people use to get stuff done.  I had often wondered how all of these tools related to each other based on who was using them.  One day I noticed that (for the most part) all of the entries are actually fairly well structured.  When an interviewee mentions a tool he or she uses, that tool is linked too.  Also, tools are fairly well organized under the Hardware and Software headings.
 
-![Example text from The Setup](readme_files/usethis_example.png)
+![Example text from The Setup](https://raw.github.com/drewconway/thesetup/master/readme_files/usesthis_example.png)
 
 It occurred to me that this meta-data could be used the generate structure among the tools vis a vis the people who use them.  As is often the case, this structure can be conceptualized as a [bipartite graph](http://en.wikipedia.org/wiki/Bipartite_graph), where the node types are people (interviewees) and tools (what they use).  Thus, the structure among tools is based on their affiliation with people.  That is, tools are related through the people that use them.  This is a very convenient way to conceptualize all kinds of data, [particularly on the web](http://www.drewconway.com/zia/?p=2490).
 
