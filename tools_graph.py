@@ -57,14 +57,18 @@ def compute_projection(G):
 	distance from one-another.
 	"""
 	sp = nx.shortest_path_length(G, weight=lambda x: 1./x['weight'])
+	# print sp["apache"]
 	M = zeros((len(sp), len(sp)))
 
-	for i, v in enumerate(G.nodes()):
-		for j, n in enumerate(G.nodes()):
+	for i, v in enumerate(sp.keys()):
+		for j, n in enumerate(sp.keys()):
 			if i == j:
 				M[i,j] = 0
 			else:
-				M[i,j] = sp[v][n]
+				try:
+					M[i,j] = sp[v][n]
+				except KeyError:
+					M[i,j] = 0
 
 
 	proj = manifold.MDS(n_components=2).fit_transform(M)
@@ -125,7 +129,7 @@ if __name__ == '__main__':
 
 	# Create an adjacency matrix as from the shortest path calculation.
 	# This will allow us to do a 2-dimensional scaling of the data
-	# # for the map projection.
+	# for the map projection.
 	main_component, dist_matrix = compute_projection(main_component)
 
 	# Create a hierarchical clustering of nodes based on the distance

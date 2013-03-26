@@ -13,18 +13,20 @@ def parse_person(url):
 	doc = html.parse(url)
 
 	# Parse time posted
-	date_obj = doc.xpath("//p[@class='details']/time[@datetime]")[0]
+	date_obj = doc.xpath("//p[@class='date']/time[@datetime]")[0]
 	date = date_obj.values()[0]
 	
 	# Parse tags
-	tags_obj = doc.xpath("//p[@class='details']/a")
-	tags = map(lambda obj: obj.text, tags_obj)
+	tags_obj = doc.xpath("//ul[@class='categories']//li/a")
+	tags = map(lambda obj: obj.items()[0], tags_obj)
+	tags = map(lambda href: href[1].split("/")[2], tags)
 
 	# Portrait link and person's name
-	person_obj = doc.xpath("//img[@class='portrait']")[0]
-	person_dict = dict(person_obj.items())
-
-	return {'url' : url, 'date' : date, 'tags' : tags, 'person' : person_dict['alt'], 'portrait' : person_dict['src']} 
+	person = doc.xpath("//h2[@class='person']")[0].text
+	portait = doc.xpath("//img[@class='portrait']")[0]
+	portait_dict = dict(portait.items())
+	
+	return {'url' : url, 'date' : date, 'tags' : tags, 'person' : person, 'portrait' : portait_dict["src"]} 
 
 def get_links(lines):
 	"""
@@ -52,7 +54,7 @@ def parse_tools(url):
 	lines = doc.readlines()
 
 	# Find the indicies in the list of HTML lines that separate hardware / software sections
-	section_regex = re.compile("what-hardware-do-you-use|and-what-software|what-would-be-your-dream-setup")
+	section_regex = re.compile("What hardware do you use?|And what software?|What would be your dream setup?")
 	header_inds = [i for i, l in enumerate(lines) if re.search(section_regex, l)]
 	hardware_inds =[header_inds[0], header_inds[1]-1]
 	software_inds =[header_inds[1], header_inds[2]-1]
