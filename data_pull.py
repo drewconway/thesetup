@@ -1,8 +1,10 @@
 from lxml import html, etree
+from datetime import date
 import urllib2
 import re
 import json
 import pickle
+from couchdb.client import Server
 
 # Create functions for extracting article data: meta-tags, hardware, software
 def parse_person(url):
@@ -14,7 +16,7 @@ def parse_person(url):
 
 	# Parse time posted
 	date_obj = doc.xpath("//p[@class='date']/time[@datetime]")[0]
-	date = date_obj.values()[0]
+	page_date = date_obj.values()[0]
 	
 	# Parse tags
 	tags_obj = doc.xpath("//ul[@class='categories']//li/a")
@@ -26,7 +28,7 @@ def parse_person(url):
 	portait = doc.xpath("//img[@class='portrait']")[0]
 	portait_dict = dict(portait.items())
 	
-	return {'url' : url, 'date' : date, 'tags' : tags, 'person' : person, 'portrait' : portait_dict["src"]} 
+	return {'url' : url, 'date' : page_date, 'tags' : tags, 'person' : person, 'portrait' : portait_dict["src"]} 
 
 def get_links(lines):
 	"""
@@ -71,7 +73,9 @@ def parse_tools(url):
 
 if __name__ == '__main__':
 	# First, pull all of the interview URLs
-	years = xrange(2009, 2013)
+	years_back = 5
+	current_year = date.today().year
+	years = xrange(current_year-years_back, current_year)
 	base_url = "http://usesthis.com/interviews/in/"
 
 	interview_urls = []
@@ -94,6 +98,14 @@ if __name__ == '__main__':
 	con = open(f, "w")
 	con.writelines(data_json)
 	con.close()
+
+	# Open CouchDB server
+	admin = "drewconway"
+	pwd = "peugeot"
+	couch_url = "http://"+admin+":"+pwd+"@ec2-54-224-80-201.compute-1.amazonaws.com:5984/"
+
+	server = Server(couch_url)
+	lang_db = server["languages"]
 
 	# Export list of dicts as Pickle
 	pickle.dump(data, open("use_this.p", "wb"))
