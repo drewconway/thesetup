@@ -99,14 +99,6 @@ if __name__ == '__main__':
 	con.writelines(data_json)
 	con.close()
 
-	# Open CouchDB server
-	admin = "drewconway"
-	pwd = "peugeot"
-	couch_url = "http://"+admin+":"+pwd+"@ec2-54-224-80-201.compute-1.amazonaws.com:5984/"
-
-	server = Server(couch_url)
-	lang_db = server["languages"]
-
 	# Export list of dicts as Pickle
 	pickle.dump(data, open("use_this.p", "wb"))
 
