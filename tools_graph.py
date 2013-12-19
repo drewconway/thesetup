@@ -71,7 +71,7 @@ def compute_projection(G):
 					M[i,j] = 0
 
 
-	proj = manifold.MDS(n_components=2).fit_transform(M)
+	proj = manifold.MDS(n_components=2, dissimilarity="precomputed").fit_transform(M)
 	# print proj
 
 	# # Add this data to each node as an attribute

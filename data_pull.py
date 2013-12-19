@@ -4,7 +4,6 @@ import urllib2
 import re
 import json
 import pickle
-from couchdb.client import Server
 
 # Create functions for extracting article data: meta-tags, hardware, software
 def parse_person(url):
@@ -24,7 +23,7 @@ def parse_person(url):
 	tags = map(lambda href: href[1].split("/")[2], tags)
 
 	# Portrait link and person's name
-	person = doc.xpath("//h2[@class='person']")[0].text
+	person = doc.xpath("//h3[@class='person']")[0].text
 	portait = doc.xpath("//img[@class='portrait']")[0]
 	portait_dict = dict(portait.items())
 	
@@ -73,16 +72,25 @@ def parse_tools(url):
 
 if __name__ == '__main__':
 	# First, pull all of the interview URLs
-	years_back = 5
-	current_year = date.today().year
-	years = xrange(current_year-years_back, current_year)
-	base_url = "http://usesthis.com/interviews/in/"
+	# years_back = 4
+	# current_year = date.today().year
+	# years = xrange(current_year-years_back, current_year)
+	base_url = "http://usesthis.com/feed/"
 
-	interview_urls = []
-	for y in years:
-		doc = html.parse(base_url+str(y))
-		link_objects = doc.xpath("//h2[@class='person']/a[@href]")
-		interview_urls.extend(map(lambda obj: obj.values()[0], link_objects))
+	# Setup XML namespace
+	tree = etree.parse(base_url)
+	rt = tree.getroot()
+	ns = rt.nsmap.values()[0]
+	ns_map = {'ns':ns}
+	
+	# Extract urls
+	id_objects = tree.xpath("//ns:feed/ns:entry/ns:id", namespaces=ns_map)
+	interview_urls = map(lambda x: x.text, id_objects)
+	# for y in years:
+	# 	doc = html.parse(base_url+str(y))
+	# 	link_objects = doc.xpath("//h2[@class='person']/a[@href]")
+	# 	interview_urls.extend(map(lambda obj: obj.values()[0], link_objects))
+
 
 	# Create a list of dicts with all of the data
 	data = []
